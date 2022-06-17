@@ -1,10 +1,12 @@
 import socket 
+import pickle
+
 
 HEADER = 64
 PORT = 5050
 FORMAT = "utf-8"
 DISCONNECT_MESSAGE = "!DISCONNECT"
-SERVER = "127.0.1.1"
+SERVER = socket.gethostbyname(socket.gethostname())
 ADDR = (SERVER, PORT)
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -17,5 +19,13 @@ def send(msg):
     send_length += b' ' * (HEADER - len(send_length))
     client.send(send_length)
     client.send(message)
+    print(client.recv(2048).decode(FORMAT))
 
 send("Hello World")
+input()
+send("Hello Everyone")
+send("Hello Team")
+input()
+send("Hello Thomas")
+input()
+send(DISCONNECT_MESSAGE)
